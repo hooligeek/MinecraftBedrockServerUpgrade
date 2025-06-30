@@ -83,12 +83,51 @@ It may work on other Linux distributions with Bash, but Ubuntu is the recommende
 
 ## Contributing
 
-We welcome community contributions!  
-If you’d like to help with a specific enhancement, please see [Issue #1: Enhancement: Automated Bedrock Server Update Checker & Installer](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1) and leave a comment or open a pull request.
+We welcome and encourage community contributions!
 
-## License
+If you have ideas for improvements, bug fixes, or new features, please open an issue or submit a pull request. Whether you’re a seasoned developer or just getting started, your input is valuable.
 
-MIT License
+### How to Contribute
+
+1. **Check Existing Issues:**  
+   Look at the [issues page](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues) to see if your idea or bug has already been discussed.
+
+2. **Open a New Issue:**  
+   If your idea or bug isn’t listed, open a new issue with as much detail as possible.
+
+3. **Fork the Repository:**  
+   Click “Fork” at the top right of this page to create your own copy of the project.
+
+4. **Create a Branch:**  
+   Create a new branch for your changes:
+   ```bash
+   git checkout -b my-feature-branch
+   ```
+
+5. **Make Your Changes:**  
+   Add your improvements or fixes.
+
+6. **Commit and Push:**  
+   ```bash
+   git add .
+   git commit -m "Describe your changes"
+   git push origin my-feature-branch
+   ```
+
+7. **Open a Pull Request:**  
+   Go to your fork on GitHub and click “Compare & pull request”.
+
+### Example: Automated Update Script (Work in Progress)
+
+See [`fetch_bedrock_server.py`](./fetch_bedrock_server.py) for an example Python script that demonstrates progress toward [Issue #1: Automated Bedrock Server Update Checker & Installer](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1).
+
+This script is an early prototype for programmatically checking for new Bedrock server versions and automating the upgrade process.
+
+If you’d like to help with this enhancement, please see [Issue #1](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1), leave a comment, or open a pull request.
+
+---
+
+Thank you for helping make this project better!
 
 ---
 
