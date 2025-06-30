@@ -75,6 +75,11 @@ It may work on other Linux distributions with Bash, but Ubuntu is the recommende
 - **Custom Server Directory:**  
   Edit the `SERVER_DIR` variable in the script if your server is not in `~/bedrock`.
 
+## Contributing
+
+We welcome community contributions!  
+If you’d like to help with a specific enhancement, please see [Issue #1: Enhancement: Automated Bedrock Server Update Checker & Installer](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1) and leave a comment or open a pull request.
+
 ## License
 
 MIT License
