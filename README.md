@@ -9,6 +9,11 @@ A robust Bash script to safely upgrade your Minecraft Bedrock server with minima
 - **Minimal Downtime:** Stops the server, upgrades, and restarts it automatically.
 - **Easy to Use:** Single-command upgrade process.
 
+## Supported Platforms
+
+This script is designed and tested for **Minecraft Bedrock servers running on Ubuntu Linux**.  
+It may work on other Linux distributions with Bash, but Ubuntu is the recommended and supported environment.
+
 ## Prerequisites
 
 - Linux environment with Bash
