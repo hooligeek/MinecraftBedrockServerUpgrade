@@ -6,6 +6,7 @@ A robust Bash script to safely upgrade your Minecraft Bedrock server with minima
 
 This project was created from start to finish with the help of generative AI (GitHub Copilot and GPT-4).  
 From scripting to documentation, every step leveraged the power of modern AI tools to accelerate development and improve quality.  
+  
 If you’re curious about how AI can supercharge your own projects, feel free to reach out!
 
 ## Features
