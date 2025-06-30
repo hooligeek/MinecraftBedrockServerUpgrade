@@ -92,4 +92,4 @@ MIT License
 
 ---
 
-*Created with ❤️ for the Minecraft
+*Created with ❤️ for the Minecraft community.*
