@@ -126,6 +126,44 @@ This script is an early prototype for programmatically checking for new Bedrock 
 
 If you’d like to help with this enhancement, please see [Issue #1](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1), leave a comment, or open a pull request.
 
+## Discord Log Integration
+
+This project includes an optional Python script that monitors your Bedrock server log and sends player join/leave events to a Discord channel using a webhook.
+
+### Features
+
+- Real-time notifications in Discord when players join or leave your server.
+- Clean, readable messages (no sensitive IDs or extra info).
+
+### Setup
+
+1. **Create a Discord Webhook**
+   - In your Discord channel, go to Settings → Integrations → Webhooks.
+   - Create a new webhook and copy the URL.
+
+2. **Configure the Script**
+   - Set the `LOG_FILE` variable in `bedrock_log_to_discord.py` to your Bedrock server log path (e.g., `/home/hooligeek/bedrock/bedrock_server.log`).
+   - Set the `DISCORD_WEBHOOK_URL` as an environment variable (recommended for security):
+     ```bash
+     export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
+     ```
+   - Run the script:
+     ```bash
+     DISCORD_WEBHOOK_URL="your_webhook_url" python3 bedrock_log_to_discord.py
+     ```
+
+3. **Security**
+   - **Never commit your webhook URL to version control.**
+   - If you accidentally expose your webhook, delete it in Discord and create a new one.
+
+### Customization
+
+- Edit the `KEYWORDS` list and `prettify_log` function in the script to change which events are sent and how they are formatted.
+
+---
+
+*See `bedrock_log_to_discord.py` for the implementation.*
+
 ---
 
 Thank you for helping make this project better!
