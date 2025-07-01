@@ -2,9 +2,10 @@
 import time
 import re
 import requests
+import os
 
 LOG_FILE = "/home/hooligeek/bedrock/bedrock_server.log"
-DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1389622535473336340/vA_zfn6CPUJ3WCp5HHV7FQqOqAW6pJTxYObny6hSSUk4ef40XLqNVj6DARNZBfLyPF3e"
+DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL")
 KEYWORDS = ["Player Spawned", "Player disconnected"]
 
 def prettify_log(line):
