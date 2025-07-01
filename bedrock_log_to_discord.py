@@ -9,14 +9,14 @@ KEYWORDS = ["Player Spawned", "Player disconnected"]
 
 def prettify_log(line):
     # Player Spawned
-    match_spawn = re.search(r'Player Spawned: ([^ ]+)', line)
+    match_spawn = re.search(r'Player Spawned: (.+?) xuid:', line)
     if match_spawn:
-        player = match_spawn.group(1)
+        player = match_spawn.group(1).strip()
         return f"🟢 **{player}** joined the game!"
     # Player disconnected
-    match_disconnect = re.search(r'Player disconnected: ([^,]+)', line)
+    match_disconnect = re.search(r'Player disconnected: (.+?), xuid:', line)
     if match_disconnect:
-        player = match_disconnect.group(1)
+        player = match_disconnect.group(1).strip()
         return f"🔴 **{player}** left the game."
     return None
 
