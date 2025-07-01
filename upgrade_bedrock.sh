@@ -49,6 +49,6 @@ rm -rf "$TEMP_DIR"
 # Step 7: Restart the server in a screen session
 echo "Starting Minecraft Bedrock server in screen session '$SCREEN_NAME'..."
 cd "$SERVER_DIR"
-screen -dmS "$SCREEN_NAME" ./bedrock_server
+screen -dmS "$SCREEN_NAME" ./bedrock_server > bedrock_server.log 2>&1
 
 echo "Upgrade complete!"
