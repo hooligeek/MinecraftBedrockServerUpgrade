@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WORLD_DIR="/home/hooligeek/bedrock/world"
+WORLD_DIR="/home/hooligeek/bedrock/worlds"
 BACKUP_DIR="/home/hooligeek/bedrock_backup"
 DATE=$(date +%F)
 BACKUP_FILE="$BACKUP_DIR/minecraft_backup_${DATE}.tar.gz"
