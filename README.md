@@ -1,86 +1,102 @@
-# Minecraft Bedrock Server Upgrade
+# Minecraft Bedrock Server Management Scripts
 
-A robust Bash script to safely upgrade your Minecraft Bedrock server with minimal downtime. This tool automatically backs up your existing server, preserves essential configuration files and worlds, and seamlessly deploys the latest Bedrock server release. Perfect for server admins who value reliability and simplicity.
+A robust suite of scripts to safely upgrade, run, back up, and monitor your Minecraft Bedrock server with minimal downtime. These tools automatically back up your existing server, preserve essential configuration files and worlds, and provide easy integration with Discord and automated world backups. Perfect for server admins who value reliability and simplicity.
 
-## About This Project
+---
 
-This project was created from start to finish with the help of generative AI (GitHub Copilot and GPT-4).  
-From scripting to documentation, every step leveraged the power of modern AI tools to accelerate development and improve quality.  
-  
-If you’re curious about how AI can supercharge your own projects, feel free to reach out!
+## Scripts Overview
 
-## Features
+### 1. `upgrade_bedrock.sh`
+Safely upgrades your Bedrock server with minimal downtime.
 
-- **Automated Backups:** Creates a timestamped backup of your current server before upgrading.
-- **Config Preservation:** Keeps your `allowlist.json`, `permissions.json`, `server.properties`, and `worlds` directory intact.
-- **Minimal Downtime:** Stops the server, upgrades, and restarts it automatically.
-- **Easy to Use:** Single-command upgrade process.
+- **Backs up** your current server to a timestamped directory.
+- **Preserves** essential config files and worlds.
+- **Deploys** the new server version from a ZIP file.
+- **Restarts** the server in a `screen` session.
 
-## Supported Platforms
-
-This script is designed and tested for **Minecraft Bedrock servers running on Ubuntu Linux**.  
-It may work on other Linux distributions with Bash, but Ubuntu is the recommended and supported environment.
-
-## Prerequisites
-
-- Linux environment with Bash
-- [screen](https://www.gnu.org/software/screen/) installed
-- [unzip](https://linux.die.net/man/1/unzip) installed
-- Minecraft Bedrock server already set up in `~/bedrock`
-- The upgrade script (`upgrade_bedrock.sh`) in your working directory
-
-## Usage
-
-1. **Download the Latest Bedrock Server ZIP**
-
-   Get the latest Bedrock server ZIP from [Mojang's official site](https://www.minecraft.net/en-us/download/server/bedrock).
-
-2. **Run the Upgrade Script**
-
-   ```bash
-   chmod +x upgrade_bedrock.sh
-   ./upgrade_bedrock.sh /path/to/bedrock-server-<version>.zip
-   ```
-
-   Replace `/path/to/bedrock-server-<version>.zip` with the path to your downloaded ZIP file.
-
-3. **What the Script Does**
-
-   - Stops the running Bedrock server (if running in a `screen` session named `bedrock`)
-   - Backs up your current server to a timestamped directory (e.g., `~/bedrock_backup_20240630_123456`)
-   - Extracts the new server files to a temporary directory
-   - Preserves your configuration files and worlds
-   - Replaces the old server files with the new ones
-   - Cleans up temporary files
-   - Restarts the server in a new `screen` session
-
-## Example
-
+**Usage:**
 ```bash
-./upgrade_bedrock.sh ~/Downloads/bedrock-server-1.20.0.1.zip
+chmod +x upgrade_bedrock.sh
+./upgrade_bedrock.sh /path/to/bedrock-server-<version>.zip
 ```
 
-## Notes
+---
 
-- The script assumes your server is located at `~/bedrock`.
-- The script uses a `screen` session named `bedrock` to manage the server process.
-- Always verify your backup before proceeding with major upgrades.
+### 2. `start_bedrock.sh` and `stop_bedrock.sh`
+Simple scripts to start and stop your Bedrock server in a `screen` session, with logging.
 
-## Troubleshooting
+- `start_bedrock.sh` starts the server and logs output to `bedrock_server.log`.
+- `stop_bedrock.sh` gracefully stops the server running in the screen session.
 
-- **Permission Denied:**  
-  Make sure the script is executable:  
-  `chmod +x upgrade_bedrock.sh`
+**Usage:**
+```bash
+chmod +x start_bedrock.sh stop_bedrock.sh
+./start_bedrock.sh
+./stop_bedrock.sh
+```
 
-- **Missing Dependencies:**  
-  Install `screen` and `unzip` if not already installed:  
-  ```bash
-  sudo apt update
-  sudo apt install screen unzip
-  ```
+---
 
-- **Custom Server Directory:**  
-  Edit the `SERVER_DIR` variable in the script if your server is not in `~/bedrock`.
+### 3. `bedrock_log_to_discord.py`
+Optional Python script to send player join/leave events from your Bedrock server log to a Discord channel via webhook.
+
+- **Real-time Discord notifications** for player activity.
+- **Customizable**: Edit keywords and formatting in the script.
+
+**Setup:**
+1. Create a Discord webhook and copy the URL.
+2. Set the `LOG_FILE` variable in the script to your Bedrock log path.
+3. Set the webhook URL as an environment variable:
+   ```bash
+   export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
+   ```
+4. Run the script:
+   ```bash
+   DISCORD_WEBHOOK_URL="your_webhook_url" python3 bedrock_log_to_discord.py
+   ```
+
+---
+
+### 4. `bedrock_backup.sh`
+Automated backup script for your world directory, with retention policy.
+
+- **Creates a timestamped backup** of your world.
+- **Keeps only the most recent N backups** (default: 7).
+- **Safe for cron automation**.
+
+**Usage:**
+1. Place the script in your backup directory (e.g., `/home/hooligeek/bedrock_backup/bedrock_backup.sh`).
+2. Make it executable:
+   ```bash
+   chmod +x /home/hooligeek/bedrock_backup/bedrock_backup.sh
+   ```
+3. Add to your crontab for daily backups at 2am:
+   ```
+   0 2 * * * /home/hooligeek/bedrock_backup/bedrock_backup.sh
+   ```
+
+**Script Example:**
+```bash
+#!/bin/bash
+WORLD_DIR="/home/hooligeek/bedrock/world"
+BACKUP_DIR="/home/hooligeek/bedrock_backup"
+DATE=$(date +%F)
+BACKUP_FILE="$BACKUP_DIR/minecraft_backup_${DATE}.tar.gz"
+RETENTION=7  # Number of backups to keep
+
+tar -czf "$BACKUP_FILE" -C "$WORLD_DIR" .
+cd "$BACKUP_DIR"
+ls -1tr minecraft_backup_*.tar.gz | head -n -$RETENTION | xargs -d '\n' rm -f --
+```
+
+---
+
+## Customization
+
+- Adjust paths and retention in the scripts as needed for your setup.
+- See each script’s comments for more options.
+
+---
 
 ## Contributing
 
@@ -118,56 +134,6 @@ If you have ideas for improvements, bug fixes, or new features, please open an i
 7. **Open a Pull Request:**  
    Go to your fork on GitHub and click “Compare & pull request”.
 
-### Example: Automated Update Script (Work in Progress)
-
-See [`fetch_bedrock_server.py`](./fetch_bedrock_server.py) for an example Python script that demonstrates progress toward [Issue #1: Automated Bedrock Server Update Checker & Installer](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1).
-
-This script is an early prototype for programmatically checking for new Bedrock server versions and automating the upgrade process.
-
-If you’d like to help with this enhancement, please see [Issue #1](https://github.com/hooligeek/MinecraftBedrockServerUpgrade/issues/1), leave a comment, or open a pull request.
-
-## Discord Log Integration
-
-This project includes an optional Python script that monitors your Bedrock server log and sends player join/leave events to a Discord channel using a webhook.
-
-### Features
-
-- Real-time notifications in Discord when players join or leave your server.
-- Clean, readable messages (no sensitive IDs or extra info).
-
-### Setup
-
-1. **Create a Discord Webhook**
-   - In your Discord channel, go to Settings → Integrations → Webhooks.
-   - Create a new webhook and copy the URL.
-
-2. **Configure the Script**
-   - Set the `LOG_FILE` variable in `bedrock_log_to_discord.py` to your Bedrock server log path (e.g., `/home/hooligeek/bedrock/bedrock_server.log`).
-   - Set the `DISCORD_WEBHOOK_URL` as an environment variable (recommended for security):
-     ```bash
-     export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
-     ```
-   - Run the script:
-     ```bash
-     DISCORD_WEBHOOK_URL="your_webhook_url" python3 bedrock_log_to_discord.py
-     ```
-
-3. **Security**
-   - **Never commit your webhook URL to version control.**
-   - If you accidentally expose your webhook, delete it in Discord and create a new one.
-
-### Customization
-
-- Edit the `KEYWORDS` list and `prettify_log` function in the script to change which events are sent and how they are formatted.
-
 ---
 
-*See `bedrock_log_to_discord.py` for the implementation.*
-
----
-
-Thank you for helping make this project better!
-
----
-
-*Created with ❤️ for the Minecraft community.*
+*Created with ❤️ for the Minecraft community. See individual script files for detailed documentation and usage instructions.*
