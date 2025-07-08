@@ -57,7 +57,7 @@ Optional Python script to send player join/leave events from your Bedrock server
 
 ---
 
-### 4. `bedrock_backup.sh`
+### 4. `backup_bedrock.sh`
 Automated backup script for your world directory, with retention policy.
 
 - **Creates a timestamped backup** of your world.
@@ -65,20 +65,20 @@ Automated backup script for your world directory, with retention policy.
 - **Safe for cron automation**.
 
 **Usage:**
-1. Place the script in your backup directory (e.g., `/home/hooligeek/bedrock_backup/bedrock_backup.sh`).
+1. Place the script in your backup directory (e.g., `/home/hooligeek/backup_bedrock.sh`).
 2. Make it executable:
    ```bash
-   chmod +x /home/hooligeek/bedrock_backup/bedrock_backup.sh
+   chmod +x /home/hooligeek/backup_bedrock.sh
    ```
 3. Add to your crontab for daily backups at 2am:
    ```
-   0 2 * * * /home/hooligeek/bedrock_backup/bedrock_backup.sh
+   0 2 * * * /home/hooligeek/backup_bedrock.sh
    ```
 
 **Script Example:**
 ```bash
 #!/bin/bash
-WORLD_DIR="/home/hooligeek/bedrock/world"
+WORLD_DIR="/home/hooligeek/bedrock/worlds"
 BACKUP_DIR="/home/hooligeek/bedrock_backup"
 DATE=$(date +%F)
 BACKUP_FILE="$BACKUP_DIR/minecraft_backup_${DATE}.tar.gz"
